@@ -1,6 +1,6 @@
-version: 1
+version: '2' 
 
-service:
+services:
   web_app:
     build: .
     command: >
@@ -11,6 +11,20 @@ service:
     environment:
       PYTHONUNBUFFERED: 'true'
     volumes:
-      - '.:web_app'
+      - '.:/web_app'
     ports:
       - '8000:8000'
+
+  postgres:
+    image: 'postgres:9.5'
+    environment:
+      POSTGRES_USER: 'myuser'
+      POSTGRES_PASSWORD: 'mypassword'
+    volumes:
+      - 'postgres:/var/lib/postgresql/data' 
+    ports:
+      - '5433:5432'
+
+volumes:
+  postgres:
+

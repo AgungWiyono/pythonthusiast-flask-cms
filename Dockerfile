@@ -1,5 +1,8 @@
-FROM python:3.6-alpine3.6
+FROM python:3.6-slim
 MAINTAINER Agung Wiyono <wiyonoagung1@gmail.com>
+
+RUN apt-get update && apt-get install -qq -y \
+build-essential libpq-dev --no-install-recommends
 
 ENV INSTALL_PATH /web_app
 run mkdir -p $INSTALL_PATH
@@ -11,4 +14,4 @@ RUN pip install -r requirements.txt
 
 COPY . .
 
-gunicorn -b 0.0.0.0:8000 --access-logfile - "web_app.app:create_app()"
+CMD gunicorn -b 0.0.0.0:8000 --access-logfile - "web_app.app:create_app()"
