@@ -5,18 +5,15 @@ services:
     build: .
     command: >
       gunicorn -b 0.0.0.0:8000
-      --access-logfile -
       --reload
-      "web_app.app:create_app()"
-    environment:
-      PYTHONUNBUFFERED: 'true'
     volumes:
-      - '.:/web_app'
+      - '.:/app'
     ports:
       - '8000:8000'
 
   postgres:
     image: 'postgres:9.5'
+    
     environment:
       POSTGRES_USER: 'myuser'
       POSTGRES_PASSWORD: 'mypassword'
